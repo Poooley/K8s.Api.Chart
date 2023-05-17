@@ -26,7 +26,7 @@ jobs:
         echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
       env:
         OWNER: '${{ github.repository_owner }}'
-        
+
     - name: install helm
       uses: azure/setup-helm@v1
       with:
@@ -34,13 +34,13 @@ jobs:
 
     - name: login to acr using helm
       run: |
-        echo ${{ secrets.ACCESS_TOKEN }} | helm registry login ${{ env.GCR_IMAGE }} --username ${{ github.repository_owner }} --password-stdin
+        echo ${{ secrets.ACCESS_TOKEN }} | helm registry login ${{ env.OWNER_LC }} --username ${{ github.repository_owner }} --password-stdin
 
     - name: save helm chart to local registry
       run: |
-        helm chart save ${{ github.workspace }}/src/azure-vote-helm-chart/ ${{ env.GCR_IMAGE }}:${{ github.sha }}
+        helm chart save ${{ github.workspace }} ${{ env.OWNER_LC }}:${{ github.sha }}
 
     - name: publish chart to acr
       run: |
-        helm chart push ${{ env.GCR_IMAGE }}:${{ github.sha }}
+        helm chart push ${{ env.OWNER_LC }}:${{ github.sha }}
 
