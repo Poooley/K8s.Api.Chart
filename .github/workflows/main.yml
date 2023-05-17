@@ -35,13 +35,13 @@ jobs:
 
     - name: login to acr using helm
       run: |
-        echo ${{ secrets.ACTION_TOKEN }} | helm registry login {{ GCR_IMAGE }} --username ${{ github.repository_owner }} --password-stdin
+        echo ${{ secrets.ACTION_TOKEN }} | helm registry login ${{ GCR_IMAGE }} --username ${{ github.repository_owner }} --password-stdin
 
     - name: save helm chart to local registry
       run: |
-        helm chart save ${{ github.workspace }} {{ GCR_IMAGE }} :${{ github.sha }}
+        helm chart save ${{ github.workspace }} ${{ GCR_IMAGE }} :${{ github.sha }}
 
     - name: publish chart to acr
       run: |
-        helm chart push {{ GCR_IMAGE }} :${{ github.sha }}
+        helm chart push ${{ GCR_IMAGE }} :${{ github.sha }}
 
