@@ -30,4 +30,4 @@ jobs:
         helm package . --destination .
         CHART_PATH=$(ls *.tgz) # get the file name of the package
         echo "The Chart path is $CHART_PATH" 
-        helm push $CHART_PATH oci://ghcr.io/poooley/api-chart
+        helm push $CHART_PATH oci://ghcr.io/poooley
