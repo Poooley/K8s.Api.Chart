@@ -32,6 +32,6 @@ jobs:
     - name: Save and push Helm chart to GitHub Container Registry
       run: |
         helm package . --destination .
-        helm push ./api-chart-${{ env.CHART_VERSION }}.tgz oci://ghcr.io/${{ github.repository_owner }}/api-chart:${{ github.sha }}
-        helm push ./api-chart-${{ env.CHART_VERSION }}.tgz oci://ghcr.io/${{ github.repository_owner }}/api-chart:latest
+        helm push ./api-chart-${{ env.CHART_VERSION }}.tgz oci://ghcr.io/${{ github.repository_owner }}/api-chart
+        helm push ./api-chart-${{ env.CHART_VERSION }}.tgz oci://ghcr.io/${{ github.repository_owner }}/api-chart
 
