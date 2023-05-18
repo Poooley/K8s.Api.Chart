@@ -25,13 +25,8 @@ jobs:
       run: |
         echo ${{ secrets.ACTION_TOKEN }} | helm registry login ${{ env.GCR_IMAGE }} --username ${{ github.repository_owner }} --password-stdin
     
-    - name: Extract chart version
-      run: |
-        echo "CHART_VERSION=$(yq e '.version' Chart.yaml)" >> $GITHUB_ENV
-
     - name: Save and push Helm chart to GitHub Container Registry
       run: |
         helm package . --destination .
-        helm push ./api-chart-${{ env.CHART_VERSION }}.tgz oci://ghcr.io/${{ github.repository_owner }}/api-chart
-        helm push ./api-chart-${{ env.CHART_VERSION }}.tgz oci://ghcr.io/${{ github.repository_owner }}/api-chart
-
+        CHART_PATH=$(ls *.tgz) # get the file name of the package
+        helm push $CHART_PATH oci://ghcr.io/${{ github.repository_owner }}/api-chart
