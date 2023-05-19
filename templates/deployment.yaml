@@ -39,16 +39,20 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /healthz
+              path: /health
               port: 80
-            initialDelaySeconds: 20
-            periodSeconds: 25
+              scheme: HTTP
+            initialDelaySeconds: 3
+            periodSeconds: 30
+            failureThreshold: 3
           readinessProbe:
             httpGet:
-              path: /healthz
+              path: /health
               port: 80
-            initialDelaySeconds: 20
-            periodSeconds: 25
+              scheme: HTTP
+            initialDelaySeconds: 3
+            periodSeconds: 30
+            failureThreshold: 3
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
