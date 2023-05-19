@@ -1,5 +1,4 @@
 image:
-  repository: ghcr.io/poooley/api-chart
   pullPolicy: IfNotPresent
   tag: ""
 
@@ -7,13 +6,15 @@ service:
   type: ClusterIP
   port: 80
 
-ingress:
-  enabled: false
 
+ingress:
+  path: /api/provide-in-pipeline
+  domainName1: "kubernetes.haidinger.me"
+  domainName2: "k8s.haidinger.me"
 resources: {}
 
 serviceAccount:
-  create: true
+  create: false
   annotations: {}
   name: ""
   
