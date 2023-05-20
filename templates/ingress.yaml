@@ -3,13 +3,14 @@ kind: Ingress
 metadata:
   name: {{ include "Kubernetes.Api.Chart.fullname" . }}
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: {{ include "Kubernetes.Api.Chart.fullname" . }}{{ .Values.ingress.path }}
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: {{ include "Kubernetes.Api.Chart.fullname" . }}{{ .Values.ingress.path }}/$2
 spec:
   rules:
   - host: {{ .Values.ingress.domainName1 }}
     http:
       paths:
-      - path: {{ .Values.ingress.path }}
+      - path: {{ .Values.ingress.path }}(/|$)(.*)
         pathType: Prefix
         backend:
           service:
