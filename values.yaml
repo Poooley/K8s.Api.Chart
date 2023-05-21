@@ -11,7 +11,15 @@ ingress:
   path: /api/provide-in-pipeline
   domainName1: "kubernetes.haidinger.me"
   domainName2: "k8s.haidinger.me"
-resources: {}
+  
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "200m"
+    memory: "256Mi"
+
 
 serviceAccount:
   create: false
