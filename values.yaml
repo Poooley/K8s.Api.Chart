@@ -1,5 +1,5 @@
 image:
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: ""
 
 service:
@@ -9,8 +9,6 @@ service:
 
 ingress:
   path: /api/provide-in-pipeline
-  domainName1: "kubernetes.haidinger.me"
-  domainName2: "k8s.haidinger.me"
   
 resources:
   requests:
