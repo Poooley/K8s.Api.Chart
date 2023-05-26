@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: {{ include "Kubernetes.Api.Chart.fullname" . }}
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    traefik.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - host: "*.haidinger.me"
