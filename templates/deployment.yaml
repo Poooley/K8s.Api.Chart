@@ -36,13 +36,9 @@ spec:
           env:
             {{- toYaml .Values.env | nindent 12 }}
           {{ if .Values.persistence.enabled }}
-            volumeMounts:
-            - name: volume
-              mountPath: /app/data
-            volumes:
-            - name: volume
-              persistentVolumeClaim:
-                claimName: k8s-dev-cluster-pvc
+          volumeMounts:
+          - name: volume
+            mountPath: /app/data
           {{- end }}
           ports:
             - name: http
@@ -67,6 +63,12 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
+      {{ if .Values.persistence.enabled }}
+      volumes:
+      - name: volume
+        persistentVolumeClaim:
+          claimName: k8s-dev-cluster-pvc
+      {{- end }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
