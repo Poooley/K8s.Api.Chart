@@ -5,6 +5,8 @@ service:
   type: ClusterIP
   port: 80
 
+persistence:
+  enabled: false
 
 ingress:
   path: /api/provide-in-pipeline

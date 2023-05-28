@@ -35,6 +35,15 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             {{- toYaml .Values.env | nindent 12 }}
+          {{- if .Values.persistence.enabled }}
+            volumeMounts:
+            - name: volume
+              mountPath: /app/data
+            volumes:
+            - name: volume
+              persistentVolumeClaim:
+                claimName: k8s-dev-cluster-pvc
+          {{- end }}
           ports:
             - name: http
               containerPort: 80
@@ -44,7 +53,7 @@ spec:
               path: /health
               port: 80
               scheme: HTTP
-            initialDelaySeconds: 3
+            initialDelaySeconds : 3
             periodSeconds: 30
             failureThreshold: 3
           readinessProbe:
