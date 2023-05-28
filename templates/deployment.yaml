@@ -55,7 +55,7 @@ spec:
               path: /health
               port: 80
               scheme: HTTP
-            initialDelaySeconds : 3
+            initialDelaySeconds : 10
             periodSeconds: 30
             failureThreshold: 3
           readinessProbe:
@@ -63,7 +63,7 @@ spec:
               path: /health
               port: 80
               scheme: HTTP
-            initialDelaySeconds: 3
+            initialDelaySeconds: 10
             periodSeconds: 30
             failureThreshold: 3
           resources:
