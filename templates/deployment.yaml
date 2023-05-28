@@ -35,7 +35,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             {{- toYaml .Values.env | nindent 12 }}
-          {{- if .Values.persistence.enabled }}
+          {{ if .Values.persistence.enabled }}
             volumeMounts:
             - name: volume
               mountPath: /app/data
