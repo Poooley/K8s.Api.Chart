@@ -29,7 +29,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       {{ if .Values.persistence.enabled }}
       volumes:
-      - name: k8s-dev-cluster-volume
+      - name: longhorn-dev-pv
         persistentVolumeClaim:
           claimName: {{ include "Kubernetes.Api.Chart.fullname" . }}-pvc
       {{- end }}
@@ -43,7 +43,7 @@ spec:
             {{- toYaml .Values.env | nindent 12 }}
           {{ if .Values.persistence.enabled }}
           volumeMounts:
-          - name: k8s-dev-cluster-volume
+          - name: longhorn-dev-pv
             mountPath: /app/data
           {{- end }}
           ports:
