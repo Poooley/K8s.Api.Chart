@@ -29,9 +29,9 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       {{ if .Values.persistence.enabled }}
       volumes:
-      - name: longhorn-dev-pv
+      - name: volume
         persistentVolumeClaim:
-          claimName: {{ include "Kubernetes.Api.Chart.fullname" . }}-pvc
+          claimName: {{ .Release.Name }}-pvc
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
@@ -43,7 +43,7 @@ spec:
             {{- toYaml .Values.env | nindent 12 }}
           {{ if .Values.persistence.enabled }}
           volumeMounts:
-          - name: longhorn-dev-pv
+          - name: volume
             mountPath: /app/data
           {{- end }}
           ports:
@@ -55,7 +55,7 @@ spec:
               path: /health
               port: 80
               scheme: HTTP
-            initialDelaySeconds : 10
+            initialDelaySeconds: 10
             periodSeconds: 30
             failureThreshold: 3
           readinessProbe:
