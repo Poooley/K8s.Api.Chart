@@ -1,0 +1,26 @@
+{{- if eq .Release.Name "api-session-manager" }}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: http-request-cronjob
+spec:
+  schedule: "0 */12 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: http-request
+            image: curlimages/curl:latest
+            env:
+              - name: SESSION_MANAGER_SECRET
+                valueFrom:
+                  secretKeyRef:
+                    name: x-session-manager-api-key
+                    key: secret
+            command: 
+              - /bin/sh
+              - -c
+              - 'curl -H "X-Api-Key: $SESSION_MANAGER_SECRET" api-session-manager/api/session-manager/users/cleanup'
+          restartPolicy: OnFailure
+{{- end }}
