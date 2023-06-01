@@ -10,6 +10,7 @@ persistence:
 
 ingress:
   path: /api/provide-in-pipeline
+  affinity: false
   
 resources:
   requests:

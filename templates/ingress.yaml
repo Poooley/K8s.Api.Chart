@@ -4,6 +4,9 @@ metadata:
   name: {{ include "Kubernetes.Api.Chart.fullname" . }}
   annotations:
     traefik.ingress.kubernetes.io/rewrite-target: /
+    {{ if .Values.ingress.affinity }}
+    traefik.ingress.kubernetes.io/affinity: "true"
+    {{ end }}
 spec:
   rules:
   - host: "*.haidinger.me"
